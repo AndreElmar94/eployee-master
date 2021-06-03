@@ -1,5 +1,6 @@
 package com.mastery.java.task.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +17,6 @@ import java.time.LocalDate;
 @Table(name = "employee")
 public class Employee {
 
-
-    // todo исправить - tittle , department
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employee_id;
@@ -29,8 +27,8 @@ public class Employee {
     @Column(name = "last_name", nullable = false)
     private String last_name;
 
-    @Column(name = "departament_id", nullable = false)
-    private int departament_id;
+    @Column(name = "department_id", nullable = false)
+    private int department_id;
 
     @Column(name = "job_tittle", nullable = false)
     private String job_tittle;

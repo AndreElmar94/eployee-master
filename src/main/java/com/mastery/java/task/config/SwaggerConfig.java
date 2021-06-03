@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
     private ApiInfo generateApiInfo() {
         return new ApiInfoBuilder()
-                .title("Test API")
+                .title("Employee API")
                 .description("API allows you to control the employees!")
                 .version("1.0")
                 .build();

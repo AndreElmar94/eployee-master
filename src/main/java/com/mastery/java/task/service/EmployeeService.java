@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface EmployeeService {
     EmployeeFullDto findById(Long id);
 
-    Page<EmployeePreviewDto> findAll(Pageable pageable);
+    Page<EmployeePreviewDto> findAll(Integer page, Integer size);
 
     EmployeeFullDto create(EmployeeCreateDto employeeCreateDto);
 

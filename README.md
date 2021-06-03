@@ -11,11 +11,11 @@
 
 ###### the web application was written using:
 #### - Maven
-#### - Framework Spring Boot
-#### - Framework Spring Data JPA
-#### - Framework Spring MVC (web)
-#### - ORDBMS – PostgreSQL
-#### - Project lombok
-#### - library MapStruct
+#### - Spring Boot
+#### - Spring Data JPA
+#### - Spring MVC (web)
+#### - PostgreSQL
+#### - lombok
+#### - MapStruct
 #### - API Bean Validation
-#### - Framework for RESTful API Swagger
+#### - API Swagger

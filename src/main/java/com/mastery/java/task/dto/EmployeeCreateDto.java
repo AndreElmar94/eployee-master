@@ -20,15 +20,16 @@ public class EmployeeCreateDto {
     private String last_name;
 
     @ApiModelProperty(example = "1")
-    @NotNull(message = "departament_id can not be null")
-    private int departament_id;
+    @NotNull(message = "department_id can not be null")
+    private int department_id;
 
     @ApiModelProperty(example = "Back-end Developer")
     @NotEmpty(message = "job_tittle can not be empty")
     private String job_tittle;
 
-    @ApiModelProperty(example = "family")
-    @NotEmpty(message = "gender can not be empty")
+    @ApiModelProperty(example = "MALE")
+//@ApiModelProperty
+//    @NotEmpty(message = "gender can not be empty")
     private Gender gender;
 
     @ApiModelProperty(example = "1990-12-01")

@@ -7,20 +7,21 @@ import com.mastery.java.task.dto.EmployeeUpdateDto;
 import com.mastery.java.task.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/employees")
-@Api(description = "Controller dedicated to manage employees")
+@Api
+
 public class EmployeeController {
 
     private EmployeeService employeeService;
 
+    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -33,8 +34,9 @@ public class EmployeeController {
 
     @GetMapping
     @ApiOperation(value = "Find all employees")
-    public Page<EmployeePreviewDto> findAll(@PageableDefault(size = Integer.MAX_VALUE) Pageable pageable) {
-        return employeeService.findAll(pageable);
+    public Page<EmployeePreviewDto> findAll(@RequestParam(required = false) Integer page,
+                                            @RequestParam(required = false) Integer size) {
+        return employeeService.findAll(page, size);
     }
 
     @PostMapping

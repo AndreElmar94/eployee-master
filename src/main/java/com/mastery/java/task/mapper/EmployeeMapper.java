@@ -7,18 +7,17 @@ import com.mastery.java.task.dto.EmployeeUpdateDto;
 import com.mastery.java.task.entity.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
-    EmployeeMapper EMPLOYEE_MAPPER = Mappers.getMapper(EmployeeMapper.class);
+//    EmployeeMapper EMPLOYEE_MAPPER = Mappers.getMapper(EmployeeMapper.class);
 
     EmployeeFullDto mapToFullDto(Employee employee);
 
-    EmployeePreviewDto mapToPreviewDto(Employee employee);
-
     Employee mapToEntity(EmployeeCreateDto employeeCreateDto);
+
+    EmployeePreviewDto mapToPreviewDto(Employee employee);
 
     void updateEntity(EmployeeUpdateDto employeeUpdateDto, @MappingTarget Employee employee);
 }
