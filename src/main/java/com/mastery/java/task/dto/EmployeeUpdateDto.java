@@ -12,23 +12,23 @@ import java.time.LocalDate;
 public class EmployeeUpdateDto {
 
     @ApiModelProperty(example = "1")
-    private Long employee_id;
+    private Integer employeeId;
 
     @ApiModelProperty(example = "Bob")
     @NotEmpty(message = "name can not be empty")
-    private String first_name;
+    private String firstName;
 
     @ApiModelProperty(example = "Bobson")
     @NotEmpty(message = "lastName can not be empty")
-    private String last_name;
+    private String lastName;
 
     @ApiModelProperty(example = "1")
     @NotNull(message = "department_id can not be null")
-    private int department_id;
+    private int departmentId;
 
     @ApiModelProperty(example = "Back-end Developer")
     @NotEmpty(message = "job_tittle can not be empty")
-    private String job_tittle;
+    private String jobTittle;
 
     @ApiModelProperty(example = "MALE")
     @NotEmpty(message = "gender can not be empty")
@@ -36,5 +36,5 @@ public class EmployeeUpdateDto {
 
     @ApiModelProperty(example = "1990-12-01")
     @NotNull(message = "date_of_birth can not be null")
-    private LocalDate date_of_birth;
+    private LocalDate dateOfBirth;
 }

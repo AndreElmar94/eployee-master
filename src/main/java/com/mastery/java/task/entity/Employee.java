@@ -19,24 +19,24 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employee_id;
+    private Integer employeeId;
 
     @Column(name = "first_name", nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName;
 
     @Column(name = "department_id", nullable = false)
-    private int department_id;
+    private int departmentId;
 
     @Column(name = "job_tittle", nullable = false)
-    private String job_tittle;
+    private String jobTittle;
 
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDate date_of_birth;
+    private LocalDate dateOfBirth;
 }

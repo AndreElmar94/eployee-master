@@ -7,27 +7,24 @@ import com.mastery.java.task.dto.EmployeeUpdateDto;
 import com.mastery.java.task.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping(value = "/employees")
 @Api
+@AllArgsConstructor
 public class EmployeeController {
+    
+    private final EmployeeService employeeService;
 
-    private EmployeeService employeeService;
-
-    @Autowired
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Find one employee by id")
-    public EmployeeFullDto findById(@PathVariable Long id) {
+    public EmployeeFullDto findById(@PathVariable Integer id) {
         return employeeService.findById(id);
     }
 
@@ -52,7 +49,13 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete employee by id")
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Integer id) {
         employeeService.deleteById(id);
+    }
+
+    @GetMapping("FirstName/{firstName}")
+    @ApiOperation(value = "Find one employee by first name")
+    public EmployeeFullDto findByFirstName(@PathVariable String firstName) {
+        return employeeService.findByFirstName(firstName);
     }
 }

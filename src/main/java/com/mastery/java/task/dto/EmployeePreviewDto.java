@@ -10,23 +10,23 @@ import java.time.LocalDate;
 public class EmployeePreviewDto {
 
     @ApiModelProperty(example = "1")
-    private Long employee_id;
+    private Integer employeeId;
 
     @ApiModelProperty(example = "Bob")
-    private String first_name;
+    private String firstName;
 
     @ApiModelProperty(example = "Bobson")
-    private String last_name;
+    private String lastName;
 
     @ApiModelProperty(example = "1")
-    private int department_id;
+    private int departmentId;
 
     @ApiModelProperty(example = "Back-end Developer")
-    private String job_tittle;
+    private String jobTittle;
 
     @ApiModelProperty(example = "MALE")
     private Gender gender;
 
     @ApiModelProperty(example = "1990-12-01")
-    private LocalDate date_of_birth;
+    private LocalDate dateOfBirth;
 }

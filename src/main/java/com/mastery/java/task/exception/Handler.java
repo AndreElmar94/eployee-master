@@ -6,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@Slf4j    // рные лояуты законфигурировать, время формат даты когда случился лог! logforJ logforbag
-// почему используется и что этам вообще @Slf4j
-
+@Slf4j
 @RestControllerAdvice
 public class Handler {
 

@@ -13,7 +13,6 @@ import com.mastery.java.task.repository.EmployeeRepository;
 import com.mastery.java.task.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,17 +26,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 //    private static final Logger log = Logger.getLogger(EmployeeServiceImpl.class);
 
     private final EmployeeMapper employeeMapper;
-
     private final EmployeeRepository employeeRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public EmployeeFullDto findById(Long id) {
+    public EmployeeFullDto findById(Integer id) {
         EmployeeFullDto foundEmployee = employeeRepository.findById(id)
                 .map(employeeMapper::mapToFullDto)
                 .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by id: %s", id)));
         log.info("EmployeeServiceImpl -> found employee: {}", foundEmployee);
-//        log.info("EmployeeServiceImpl -> find employee");
+//        log.info("EmployeeServiceImpl -> find employee ID" + id);
 //        log.error("Employee wasn't found");
         return foundEmployee;
     }
@@ -57,20 +55,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeFullDto create(EmployeeCreateDto employeeCreateDto) {
         Employee employeeToSave = employeeMapper.mapToEntity(employeeCreateDto);
 
-        employeeToSave.setFirst_name(employeeCreateDto.getFirst_name());
-        employeeToSave.setLast_name(employeeCreateDto.getLast_name());
+        employeeToSave.setFirstName(employeeCreateDto.getFirstName());
+        employeeToSave.setLastName(employeeCreateDto.getLastName());
         employeeToSave.setGender(Gender.MALE);
-        employeeToSave.setDepartment_id(employeeCreateDto.getDepartment_id());
-        employeeToSave.setJob_tittle(employeeCreateDto.getJob_tittle());
-        employeeToSave.setDate_of_birth(employeeCreateDto.getDate_of_birth());
+        employeeToSave.setDepartmentId(employeeCreateDto.getDepartmentId());
+        employeeToSave.setJobTittle(employeeCreateDto.getJobTittle());
+        employeeToSave.setDateOfBirth(employeeCreateDto.getDateOfBirth());
 
         Employee savedEmployee = employeeRepository.save(employeeToSave);
 
 //        EmployeeFullDto employeeFullDto = saveEmployee(employeeToSave);
 //        log.info("EmployeeServiceImpl -> employee {} successfully saved", employeeFullDto);
         log.info("EmployeeServiceImpl -> employee {} successfully saved", savedEmployee);
-
-
 //        log.info("EmployeeServiceImpl -> employee {} successfully saved");
 //        log.error("Employee wasn't saved");
         return employeeMapper.mapToFullDto(savedEmployee);
@@ -79,10 +75,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public EmployeeFullDto update(EmployeeUpdateDto employeeUpdateDto) {
-        Employee employeeToUpdate = employeeRepository.findById(employeeUpdateDto.getEmployee_id())
-                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by id: %s", employeeUpdateDto.getEmployee_id())));
+        Employee employeeToUpdate = employeeRepository.findById(employeeUpdateDto.getEmployeeId())
+                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by id: %s", employeeUpdateDto.getEmployeeId())));
 
-        employeeMapper.updateEntity(employeeUpdateDto,employeeToUpdate);
+        employeeMapper.updateEntity(employeeUpdateDto, employeeToUpdate);
         Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
         log.info("EmployeeServiceImpl -> employee {} was successfully updated", updatedEmployee);
 //        log.info("EmployeeServiceImpl -> employee {} was successfully updated");
@@ -92,24 +88,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
-        employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(String.format("Employee was not found by id: %s", id)));;
+    public void deleteById(Integer id) {
+        employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(String.format("Employee was not found by id: %s", id)));
+        ;
         employeeRepository.deleteById(id);
         log.info("EmployeeServiceImpl -> employee by id: {} successfully deleted", id);
 //        log.info("EmployeeServiceImpl -> employee successfully deleted");
 //        log.error("Employee wasn't deleted");
     }
 
-    private EmployeeFullDto saveEmployee(Employee newEmployee) {
-        Employee employee = employeeRepository.save(newEmployee);
-        EmployeeFullDto employeeFullDto = employeeMapper.mapToFullDto(employee);
-        employeeFullDto.setFirst_name(employee.getFirst_name());
-        employeeFullDto.setLast_name(employee.getLast_name());
-        employeeFullDto.setGender(employee.getGender());
-        employeeFullDto.setDepartment_id(employee.getDepartment_id());
-        employeeFullDto.setJob_tittle(employee.getJob_tittle());
-        employeeFullDto.setDate_of_birth(employee.getDate_of_birth());
-        return employeeFullDto;
+    @Override
+    public EmployeeFullDto findByFirstName(String name) {
+        EmployeeFullDto foundEmployee = employeeRepository.findByFirstName(name)
+                .map(employeeMapper::mapToFullDto)
+                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by firstName: %s", name)));
+
+        log.info("EmployeeServiceImpl -> found employee : {} by firstName: {}", foundEmployee, name);
+        return foundEmployee;
     }
+
+//    private EmployeeFullDto saveEmployee(Employee newEmployee) {
+//        Employee employee = employeeRepository.save(newEmployee);
+//        EmployeeFullDto employeeFullDto = employeeMapper.mapToFullDto(employee);
+//        employeeFullDto.setFirst_name(employee.getFirst_name());
+//        employeeFullDto.setLast_name(employee.getLast_name());
+//        employeeFullDto.setGender(employee.getGender());
+//        employeeFullDto.setDepartment_id(employee.getDepartment_id());
+//        employeeFullDto.setJob_tittle(employee.getJob_tittle());
+//        employeeFullDto.setDate_of_birth(employee.getDate_of_birth());
+//        return employeeFullDto;
+//    }
+
 
 }
