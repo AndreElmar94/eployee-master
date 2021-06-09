@@ -5,13 +5,12 @@ import com.mastery.java.task.dto.EmployeeFullDto;
 import com.mastery.java.task.dto.EmployeePreviewDto;
 import com.mastery.java.task.dto.EmployeeUpdateDto;
 import com.mastery.java.task.entity.Employee;
-import com.mastery.java.task.exception.EntityIsNotFoundException;
+import com.mastery.java.task.exception.EmployeeServiceNotFoundException;
 import com.mastery.java.task.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,9 +18,7 @@ import static com.mastery.java.task.util.DtoGenerationUtils.generateEmployeeCrea
 import static com.mastery.java.task.util.DtoGenerationUtils.generateEmployeeUpdateDto;
 import static com.mastery.java.task.util.EntityGenerationUtils.generateEmployee;
 import static com.mastery.java.task.util.EntityGenerationUtils.generateListEmployee;
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class EmployeeServiceImplTest {
@@ -122,7 +119,7 @@ public class EmployeeServiceImplTest {
         employeeService.deleteById(savedEmployeeId);
 
         //then
-        assertThrows(EntityIsNotFoundException.class, () -> employeeService.findById(savedEmployeeId));
+        assertThrows(EmployeeServiceNotFoundException.class, () -> employeeService.findById(savedEmployeeId));
     }
 
     @Test
@@ -131,7 +128,7 @@ public class EmployeeServiceImplTest {
         Integer notExisting = 1000;
 
         //when
-        Exception exception = assertThrows(EntityIsNotFoundException.class, () -> employeeService.deleteById(notExisting));
+        Exception exception = assertThrows(EmployeeServiceNotFoundException.class, () -> employeeService.deleteById(notExisting));
 
         //then
         assertTrue(exception.getMessage().contains(String.valueOf(notExisting)));

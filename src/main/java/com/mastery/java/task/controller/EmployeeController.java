@@ -21,7 +21,6 @@ public class EmployeeController {
     
     private final EmployeeService employeeService;
 
-
     @GetMapping("/{id}")
     @ApiOperation(value = "Find one employee by id")
     public EmployeeFullDto findById(@PathVariable Integer id) {

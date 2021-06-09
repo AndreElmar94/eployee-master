@@ -6,8 +6,7 @@ import com.mastery.java.task.dto.EmployeePreviewDto;
 import com.mastery.java.task.dto.EmployeeUpdateDto;
 import com.mastery.java.task.entity.Employee;
 import com.mastery.java.task.entity.Gender;
-import com.mastery.java.task.exception.EmployeeNotFoundException;
-import com.mastery.java.task.exception.EntityIsNotFoundException;
+import com.mastery.java.task.exception.EmployeeServiceNotFoundException;
 import com.mastery.java.task.mapper.EmployeeMapper;
 import com.mastery.java.task.repository.EmployeeRepository;
 import com.mastery.java.task.service.EmployeeService;
@@ -33,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeFullDto findById(Integer id) {
         EmployeeFullDto foundEmployee = employeeRepository.findById(id)
                 .map(employeeMapper::mapToFullDto)
-                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by id: %s", id)));
+                .orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by id: %s", id)));
         log.info("EmployeeServiceImpl -> found employee: {}", foundEmployee);
 //        log.info("EmployeeServiceImpl -> find employee ID" + id);
 //        log.error("Employee wasn't found");
@@ -46,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 size == null ? Integer.MAX_VALUE : size);
         Page<EmployeePreviewDto> foundEmployees = employeeRepository.findAll(pageRequest).map(employeeMapper::mapToPreviewDto);
         log.info("EmployeeServiceImpl -> found employees: {}", foundEmployees);
-//        log.info("EmployeeServiceImpl -> found employees");
+//        log.info("EmployeeServiceImpl -> found employees: " + foundEmployees.getSize());
 //        log.error("Employees weren't found");
         return foundEmployees;
     }
@@ -76,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeFullDto update(EmployeeUpdateDto employeeUpdateDto) {
         Employee employeeToUpdate = employeeRepository.findById(employeeUpdateDto.getEmployeeId())
-                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by id: %s", employeeUpdateDto.getEmployeeId())));
+                .orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by id: %s", employeeUpdateDto.getEmployeeId())));
 
         employeeMapper.updateEntity(employeeUpdateDto, employeeToUpdate);
         Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
@@ -89,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
-        employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(String.format("Employee was not found by id: %s", id)));
+        employeeRepository.findById(id).orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by id: %s", id)));
         ;
         employeeRepository.deleteById(id);
         log.info("EmployeeServiceImpl -> employee by id: {} successfully deleted", id);
@@ -101,7 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeFullDto findByFirstName(String name) {
         EmployeeFullDto foundEmployee = employeeRepository.findByFirstName(name)
                 .map(employeeMapper::mapToFullDto)
-                .orElseThrow(() -> new EntityIsNotFoundException(String.format("Employee was not found by firstName: %s", name)));
+                .orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by firstName: %s", name)));
 
         log.info("EmployeeServiceImpl -> found employee : {} by firstName: {}", foundEmployee, name);
         return foundEmployee;

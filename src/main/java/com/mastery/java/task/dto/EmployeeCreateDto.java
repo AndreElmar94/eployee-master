@@ -28,8 +28,7 @@ public class EmployeeCreateDto {
     private String jobTittle;
 
     @ApiModelProperty(example = "MALE")
-//@ApiModelProperty
-//    @NotEmpty(message = "gender can not be empty")
+    @NotEmpty(message = "gender can not be empty")
     private Gender gender;
 
     @ApiModelProperty(example = "1990-12-01")
