@@ -20,7 +20,7 @@ import static com.mastery.java.task.util.EntityGenerationUtils.generateEmployee;
 import static com.mastery.java.task.util.EntityGenerationUtils.generateListEmployee;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 public class EmployeeServiceImplTest {
 
     @Autowired
@@ -92,7 +92,8 @@ public class EmployeeServiceImplTest {
 
     @Test
     void update_happyPath() {
-        //given
+        //given -> аннотация СпрингБутТест ? переделать на Юнит тест
+
         EmployeeCreateDto employeeCreateDto = generateEmployeeCreateDto();
 
         EmployeeFullDto employeeCreated = employeeService.create(employeeCreateDto);

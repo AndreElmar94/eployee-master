@@ -31,7 +31,6 @@ public class EmployeeUpdateDto {
     private String jobTittle;
 
     @ApiModelProperty(example = "MALE")
-    @NotEmpty(message = "gender can not be empty")
     private Gender gender;
 
     @ApiModelProperty(example = "1990-12-01")

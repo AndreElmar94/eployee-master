@@ -17,6 +17,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .useDefaultResponseMessages(false)
                 .apiInfo(generateApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.mastery.java.task.controller"))

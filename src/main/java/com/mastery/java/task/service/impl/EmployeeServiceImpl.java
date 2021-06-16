@@ -22,20 +22,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-//    private static final Logger log = Logger.getLogger(EmployeeServiceImpl.class);
+// todo -> вместо аннотации @Slf4j ->   Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
     private final EmployeeMapper employeeMapper;
     private final EmployeeRepository employeeRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public EmployeeFullDto findById(Integer id) {
         EmployeeFullDto foundEmployee = employeeRepository.findById(id)
                 .map(employeeMapper::mapToFullDto)
                 .orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by id: %s", id)));
         log.info("EmployeeServiceImpl -> found employee: {}", foundEmployee);
-//        log.info("EmployeeServiceImpl -> find employee ID" + id);
-//        log.error("Employee wasn't found");
         return foundEmployee;
     }
 
@@ -45,8 +42,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 size == null ? Integer.MAX_VALUE : size);
         Page<EmployeePreviewDto> foundEmployees = employeeRepository.findAll(pageRequest).map(employeeMapper::mapToPreviewDto);
         log.info("EmployeeServiceImpl -> found employees: {}", foundEmployees);
-//        log.info("EmployeeServiceImpl -> found employees: " + foundEmployees.getSize());
-//        log.error("Employees weren't found");
         return foundEmployees;
     }
 
@@ -63,11 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee savedEmployee = employeeRepository.save(employeeToSave);
 
-//        EmployeeFullDto employeeFullDto = saveEmployee(employeeToSave);
-//        log.info("EmployeeServiceImpl -> employee {} successfully saved", employeeFullDto);
         log.info("EmployeeServiceImpl -> employee {} successfully saved", savedEmployee);
-//        log.info("EmployeeServiceImpl -> employee {} successfully saved");
-//        log.error("Employee wasn't saved");
         return employeeMapper.mapToFullDto(savedEmployee);
     }
 
@@ -80,8 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.updateEntity(employeeUpdateDto, employeeToUpdate);
         Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
         log.info("EmployeeServiceImpl -> employee {} was successfully updated", updatedEmployee);
-//        log.info("EmployeeServiceImpl -> employee {} was successfully updated");
-//        log.error("Employee wasn't update");
         return employeeMapper.mapToFullDto(updatedEmployee);
     }
 
@@ -89,11 +78,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public void deleteById(Integer id) {
         employeeRepository.findById(id).orElseThrow(() -> new EmployeeServiceNotFoundException(String.format("Employee was not found by id: %s", id)));
-        ;
         employeeRepository.deleteById(id);
         log.info("EmployeeServiceImpl -> employee by id: {} successfully deleted", id);
-//        log.info("EmployeeServiceImpl -> employee successfully deleted");
-//        log.error("Employee wasn't deleted");
     }
 
     @Override

@@ -12,10 +12,11 @@
 ###### the web application was written using:
 #### - Maven
 #### - Spring Boot
-#### - Spring Data JPA
-#### - Spring MVC (web)
+#### - Spring Data
+#### - Spring MVC 
+#### - Spring Boot Actuator 
 #### - PostgreSQL
 #### - lombok
 #### - MapStruct
-#### - API Bean Validation
-#### - API Swagger
+#### - Validation
+#### - Swagger
